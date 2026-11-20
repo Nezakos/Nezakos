@@ -192,7 +192,7 @@
       font-weight: 600;
     }
 
-    .languages-bar {
+.languages-bar {
       margin-top: 24px;
       padding-top: 18px;
       border-top: 1px solid var(--border);
@@ -200,10 +200,30 @@
       color: var(--text-secondary);
     }
 
-    .languages-bar span {
+    .languages-title {
       color: var(--accent);
       font-weight: 600;
-      margin-right: 8px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .languages-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .languages-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .lang-flag {
+      width: 18px;
+      height: auto;
+      border-radius: 2px;
     }
 
     /* Skills 3x2 Grid */
@@ -282,6 +302,36 @@
     .contact-item svg {
       color: var(--accent);
       flex-shrink: 0;
+    }
+
+    .contact-item.email-box:hover {
+      border-color: var(--border);
+      color: var(--text-primary);
+    }
+
+    .copy-btn {
+      margin-left: 6px;
+      padding: 4px 10px;
+      background-color: transparent;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .email-link {
+      transition: color 0.2s ease;
+    }
+
+    .email-link:hover {
+      color: var(--accent);
     }
 
     /* Footer */
@@ -384,7 +434,21 @@
               software works, trace issues to their root cause, and fix bugs cleanly.
             </p>
             <div class="languages-bar">
-              <span>Languages:</span> Greek (Native) · English (C1+) · German (B1)
+              <span class="languages-title">Languages:</span>
+              <ul class="languages-list">
+                <li>
+                  <img src="https://flagcdn.com/w20/gr.png" alt="Greek flag" class="lang-flag">
+                  Greek (Native)
+                </li>
+                <li>
+                  <img src="https://flagcdn.com/w20/gb.png" alt="English flag" class="lang-flag">
+                  English (C1+)
+                </li>
+                <li>
+                  <img src="https://flagcdn.com/w20/de.png" alt="German flag" class="lang-flag">
+                  German (B1)
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -500,25 +564,32 @@
       <div class="container">
         <h2 class="section-title">Contact</h2>
         <div class="section-line"></div>
-        <p class="contact-intro">
-          Feel free to reach out via email or connect directly through GitHub.
-        </p>
-
-        <div class="contact-list">
-          <a href="mailto:nikolaidisdd@gmail.com" class="contact-item">
+            <div class="contact-list">
+          <div class="contact-item email-box">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
               <polyline points="22,6 12,13 2,6"/>
             </svg>
-            nikolaidis.it@gmail.com
-          </a>
+            <a href="mailto:nikolaidis.it@gmail.com" id="email-text" class="email-link">nikolaidis.it@gmail.com</a>
+            <button type="button" class="copy-btn" onclick="copyEmail(this)">Copy</button>
+          </div>
 
           <a href="https://github.com/Nezakos" target="_blank" rel="noopener noreferrer" class="contact-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
             </svg>
-            github.com/Nezakos
+            GitHub
           </a>
+
+          <a href="https://www.linkedin.com/in/nikolaidisdimitrios" target="_blank" rel="noopener noreferrer" class="contact-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn
+          </a>
+
         </div>
       </div>
     </section>
@@ -530,6 +601,14 @@
       Dimitrios Nikolaidis · Nezakos
     </div>
   </footer>
-
+<script>
+    function copyEmail(btn) {
+      const email = document.getElementById('email-text').textContent;
+      navigator.clipboard.writeText(email).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 2000);
+      });
+    }
+  </script>
 </body>
 </html>
